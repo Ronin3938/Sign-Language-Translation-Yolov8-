@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Add a style for the unified header */
+        .unified-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .unified-header h1 {
+            color: #ffffff; /* Make the main title bright white */
+            font-size: 2.5em;
+            font-weight: 200;
+            margin: 0;
+        }
+        /* Style for the navigation button */
+        .unified-header .nav-button {
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .unified-header .nav-button:hover {
+            opacity: 0.8;
+        }
+        .dashboard-container {
+            /* Ensure the header spans the full width of the grid layout */
+            display: grid; 
+            grid-template-columns: 3fr 1.5fr; 
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 30px;
+        }
+        .header-full-width {
+            grid-column: 1 / 3;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="dashboard-container">
+        <div class="unified-header header-full-width">
+            <h1>Sign Language Translator</h1>
+            <a href="{{ url_for('image_search') }}" class="nav-button">
+                Text-to-Sign Helper →
+            </a>
+        </div>
+    
+        <div class="video-panel">
+            <h2 class="title" style="font-size: 1.8em;">Live Stream Detection</h2>
+            <div class="video-box">
+                <img id="video-feed" src="placeholder.jpg" alt="Live Video Feed"> 
+                <div class="detection-overlay">
+                    <span id="detection-status">Awaiting Hand Sign...</span>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="start-btn">▶️ Start Detection</button>
+                <button id="stop-btn">⏹️ Stop Detection</button>
+            </div>
+        </div>
+
+        <div class="metrics-panel">
+            <h2 class="section-title">Detection Metrics</h2>
+            
+            <div class="metric-card result-card">
+                <span class="card-label">CURRENT LETTER</span>
+                <span id="current-prediction" class="big-number result-char">?</span>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="card-label">Target Rate</span>
+                    <span class="big-number rate-target">1.0 FPS</span>
+                </div>
+                <div class="metric-card">
+                    <span class="card-label">Actual Speed (FPS)</span>
+                    <span id="actual-fps" class="big-number rate-actual">20.7</span>
+                </div>
+                <div class="metric-card">
+                    <span class="card-label">Trained Accuracy</span>
+                    <span class="big-number accuracy-value">94.9%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="card-label">Total Detections</span>
+                    <span id="total-detections" class="big-number">0</span>
+                </div>
+            </div>
+
+            <div class="section-title history-title">
+                <h2>Prediction History</h2>
+                <span id="history-log" class="history-box"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

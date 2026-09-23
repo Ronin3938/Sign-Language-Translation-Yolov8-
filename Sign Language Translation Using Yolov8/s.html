@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL Real-Time Detector - YOLOv8</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <div class="video-panel">
+            <h1 class="title">ASL Live Stream</h1>
+            <div class="video-box">
+                <img id="video-feed" src="placeholder.jpg" alt="Live Video Feed"> 
+                <div class="detection-overlay">
+                    <span id="detection-status">Awaiting Hand Sign...</span>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="start-btn">▶️ Start Detection</button>
+                <button id="stop-btn">⏹️ Stop Detection</button>
+            </div>
+        </div>
+
+        <div class="metrics-panel">
+            <h2 class="section-title">Detection Metrics</h2>
+            
+            <div class="metric-card result-card">
+                <span class="card-label">CURRENT LETTER</span>
+                <span id="current-prediction" class="big-number result-char">?</span>
+            </div>
+
+            <div class="metrics-grid">
+                
+                <div class="metric-card">
+                    <span class="card-label">Target Rate</span>
+                    <span class="big-number rate-target">1.0 FPS</span>
+                </div>
+                
+                <div class="metric-card">
+                    <span class="card-label">Actual Speed (FPS)</span>
+                    <span id="actual-fps" class="big-number rate-actual">20.7</span>
+                </div>
+                
+                <div class="metric-card">
+                    <span class="card-label">Trained Accuracy</span>
+                    <span class="big-number accuracy-value">94.9%</span>
+                </div>
+                
+                <div class="metric-card">
+                    <span class="card-label">Total Detections</span>
+                    <span id="total-detections" class="big-number">0</span>
+                </div>
+                
+            </div>
+
+            <div class="section-title history-title">
+                <h2>Prediction History</h2>
+                <span id="history-log" class="history-box"></span>
+            </div>
+        </div>
+    </div>
+
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Replicating unified header styles for this page */
+        .unified-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .unified-header h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            font-weight: 200;
+            margin: 0;
+        }
+        .unified-header .nav-button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Use a different color for better contrast/navigation cue */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .unified-header .nav-button:hover {
+            opacity: 0.8;
+        }
+        
+        /* Specific modern styles for the search page container */
+        .search-page-container {
+            max-width: 900px;
+            margin: 0 auto; /* Removed top/bottom margin to allow the header to sit better */
+            padding: 40px;
+            background-color: var(--card-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-content {
+            padding-top: 20px;
+        }
+        .search-page-container h2 {
+            font-size: 2.2em;
+            color: var(--accent-color);
+            border-bottom: 2px solid #3d3f54;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Styles for chat input and image result box (kept the same) */
+        .chat-input {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .chat-input input[type="text"] {
+            flex-grow: 1;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #555;
+            background: #333;
+            color: white;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+        .chat-input input[type="text"]:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        .chat-input button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--accent-color); 
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .chat-input button:hover {
+            background-color: #3a75b8;
+        }
+
+        .image-result-box {
+            margin-top: 40px;
+            text-align: center;
+            background-color: #31334c;
+            padding: 30px;
+            border-radius: 12px;
+            min-height: 250px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-result-box h3 {
+            color: #ddd;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .image-result-box img {
+            max-width: 400px; 
+            height: auto;
+            border: 5px solid #fff; 
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.5); 
+        }
+        .info-box {
+            background-color: #3d3d52;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    
+    <div style="max-width: 1400px; margin: 20px auto;"> 
+
+        <div class="unified-header">
+            <h1>Sign Language Translator</h1>
+            <a href="{{ url_for('index') }}" class="nav-button">
+                ← Back to Real-Time Detector
+            </a>
+        </div>
+    
+        <div class="search-page-container search-content">
+            <h2>Text-to-Sign Helper</h2>
+
+            <div class="info-box">
+                Enter a keyword to retrieve the corresponding sign language image from the database (e.g., 'A', 'B', 'apple').
+            </div>
+
+            <form class="chat-input" method="POST" action="{{ url_for('image_search') }}">
+                <input type="text" name="keyword" placeholder="Enter word to search for image..." required value="{{ search_keyword or '' }}">
+                <button type="submit">Search Sign</button>
+            </form>
+
+            <div class="image-result-box">
+                {% if found_image %}
+                    <h3>Sign Found for: "{{ search_keyword | upper }}"</h3>
+                    <img src="{{ url_for('static', filename=found_image) }}" alt="Found Sign: {{ search_keyword }}">
+                {% elif search_keyword %}
+                    <h3>😔 Sign Not Found</h3>
+                    <p>We could not find an image containing "**{{ search_keyword }}**" in the file name. Try a different word.</p>
+                {% else %}
+                    <h3>Start Searching...</h3>
+                    <p>Your sign language images will appear here.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
