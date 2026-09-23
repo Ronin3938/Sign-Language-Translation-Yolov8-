@@ -27,6 +27,48 @@ An AI-powered two-way communication platform that translates sign language gestu
 
 ### Prerequisites
 
+
+Installation
+Clone the repository:
+
+Bash
+git clone [https://github.com/your-username/sign-language-translator.git](https://github.com/your-username/sign-language-translator.git)
+cd sign-language-translator
+Create and activate a virtual environment (optional but recommended):
+
+Bash
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+Install dependencies:
+
+Bash
+pip install -r requirements.txt
+Usage
+Run the Application:
+
+Bash
+python app.py
+Access the Web Interface:
+Open your browser and navigate to http://127.0.0.1:5000 (or the local port displayed in your terminal).
+
+Modules:
+
+Real-Time Detection: Grant camera permissions to begin translating live hand gestures into text.
+
+Text-to-Sign Helper: Enter letters or words into the search bar to display sign visuals.
+
+Model Performance
+The underlying YOLOv8 detection model demonstrates strong performance metrics across single-hand gesture alphabets:
+
+mAP@50: ~94.9%
+
+Precision: ~92.7%
+
+Inference Speed: Real-time stream support (up to high FPS depending on hardware)
+
 Ensure you have Python installed (v3.8 or higher recommended).
 
 ```bash
